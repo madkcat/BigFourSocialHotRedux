@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "Boilerplate for ReactJS, Redux, Hot Loading and Firebase 3.x",
   "scripts": {
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build",
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel test:watch open:src lint:watch",
     "open:src": "babel-node tools/srcServer.js",
@@ -23,12 +27,12 @@
     "webpack",
     "firebase"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "author": "madkcat (https://github.com/madkcat/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+    "url": "https://github.com/madkcat/BigFourSocialHotRedux/issues"
   },
-  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
+  "homepage": "https://madkcat.github.io/BigFourSocialHotRedux/",
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.1",
@@ -48,13 +52,16 @@
     "expect": "^1.20.1",
     "express": "^4.13.4",
     "file-loader": "^0.8.5",
+    "firebase": "^3.9.0",
     "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
     "nock": "^8.0.0",
     "npm-run-all": "^2.1.1",
     "open": "0.0.5",
     "react-addons-test-utils": "^15.1.0",
+    "react-deploy": "0.0.15",
     "react-hot-loader": "^3.0.0-beta.2",
+    "react-scripts": "0.9.5",
     "redux-immutable-state-invariant": "^1.2.3",
     "redux-mock-store": "^1.0.4",
     "style-loader": "^0.13.1",
@@ -66,6 +73,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "firebase": "^3.0.3",
+    "gh-pages": "^1.1.0",
     "jquery": "^3.0.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
@@ -79,6 +87,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+    "url": "https://github.com/madkcat/BigFourSocialHotRedux.git"
   }
 }
