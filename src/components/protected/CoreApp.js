@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router';
-import checkAuth from '../requireAuth';
-import './App.css';
-import firebase, { auth, provider } from '../../config.js';
+// import React, { Component } from 'react';
+// import {Link} from 'react-router';
+// import checkAuth from '../requireAuth';
+// import './App.css';
+// import firebase, { auth, provider } from '../../config.js';
 // import { UIPad } from './components/uipad';
 // import { UIPad } from './components/uipad.js';
-class CoreApp extends Component {
-  constructor() {
-    super();
+class CoreApp extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       twoteam: false,
       teamselect: false,
@@ -71,7 +71,7 @@ class CoreApp extends Component {
       green5:0,
       green6:0,
       green7:0
-    }
+    };
     this.handleChange = this.handleChange.bind(this);// Currently unused, but saved just in case
     this.handletcOptionChange = this.handletcOptionChange.bind(this); //Handles Team Color Change
     this.handlerOptionChange = this.handlerOptionChange.bind(this);// Currently unused, but saved just in case
@@ -179,15 +179,17 @@ class CoreApp extends Component {
     e.preventDefault();
     this.setState({
       colorjump: this.state.teamcolor
-    })
+    });
     const scoreRef = firebase.database().ref('scorecard');
     const scoreboardRef = firebase.database().ref('scoreboard');
-    var er = -10;
-    var temperror = 0;
-    var tempqnumber = 0;
-    // var jcase = '';
-    var jcolor = '';
-    var score = {
+    const er = -10;
+    var fc = 0;
+    var tt = 0;
+    let temperror = 0;
+    let tempqnumber = 0;
+    // let jcase = '';
+    let jcolor = '';
+    let score = {
       title: this.state.qnumber,
       teamcolor: this.state.teamcolor,
       quizzerpad: this.state.padnum,
@@ -207,33 +209,30 @@ class CoreApp extends Component {
       greenerror: this.state.greenerror,
       greenfoul: this.state.greenfouls,
       user: this.state.user.displayName || this.state.user.email
-    }
-    var scoreb = {
+    };
+    let scoreb = {
       redscore: this.state.outsetredscore,
       yellowscore: this.state.outsetyellowscore,
       greenscore: this.state.outsetgreenscore
-    }
+    };
     scoreRef.push(score);
     scoreboardRef.push(scoreb);
-    var tempred = 0;
-    var tempyellow = 0;
-    var tempgreen = 0;
-    var prered = 0;
-    var preyellow = 0;
-    var pregreen = 0;
+    let tempred = 0;
+    let tempyellow = 0;
+    let tempgreen = 0;
+    let prered = 0;
+    let preyellow = 0;
+    let pregreen = 0;
     if (this.state.notoss === true){
       this.setState({
         outsetredscore: 40,
         outsetyellowscore:40,
         outsetgreenscore: 40
-      })
+      });
     }
     switch (score.jumptype) {
-      default:
-        console.log('no pad registered');
-        break;
-      case 'regular':
-        var rc = 20;
+      case "regular":
+        let rc = 20;
         if (score.jresult === true) {
           jcolor = 'green';
           tempqnumber = this.state.qnumber;
@@ -281,7 +280,7 @@ class CoreApp extends Component {
           jcolor = 'red';
           switch (this.state.teamcolor) {
             default:
-              console.log('insert default message')
+              console.log('insert default message');
               break;
             case 'red':
             if (this.state.notoss === true){
@@ -305,12 +304,12 @@ class CoreApp extends Component {
                 if (this.state.rederror >= 3) {
                   this.setState({
                     outsetredscore: prered
-                  })
+                  });
                 }
                 else if (this.state.qnumber >= 16) {
                   this.setState({
                     outsetredscore: prered
-                  })
+                  });
                 }
                 break;
               }
@@ -337,12 +336,12 @@ class CoreApp extends Component {
                 if (this.state.yellowerror >= 3) {
                   this.setState({
                     outsetyellowscore: preyellow
-                  })
+                  });
                 }
                 else if (this.state.qnumber >= 16) {
                   this.setState({
                     outsetyellowscore: preyellow
-                  })
+                  });
                 }
                 break;
               }
@@ -369,12 +368,12 @@ class CoreApp extends Component {
                 if (this.state.greenerror >= 3) {
                   this.setState({
                     outsetgreenscore: pregreen
-                  })
+                  });
                 }
                 else if (this.state.qnumber >= 16) {
                   this.setState({
                     outsetgreenscore: pregreen
-                  })
+                  });
                 }
                 break;
               }
@@ -382,7 +381,7 @@ class CoreApp extends Component {
           if (this.state.twoteam === true) {
             this.setState({
               jumptype: 'free'
-            })
+            });
           }
           else (
             this.setState({
@@ -390,17 +389,17 @@ class CoreApp extends Component {
               wronganswer: true,
               padnum: null
             })
-          )
+          );
         }
         break;
       case 'tossup':
-        var tc = 20;
+        let tc = 20;
         if (score.jresult === true) {
           jcolor = 'green';
           tempqnumber = this.state.qnumber;
           switch (this.state.teamcolor) {
             default:
-              console.log('no team color picked')
+              console.log('no team color picked');
               break;
             case 'red':
               tempred = this.state.outsetredscore;
@@ -455,12 +454,12 @@ class CoreApp extends Component {
               if (this.state.rederror >= 3) {
                 this.setState({
                   outsetredscore: prered + er
-                })
+                });
               }
               else if (this.state.qnumber >= 16) {
                 this.setState({
                   outsetredscore: prered + er
-                })
+                });
               }
               break;
             case 'yellow':
@@ -474,12 +473,12 @@ class CoreApp extends Component {
               if (this.state.yellowerror >= 3) {
                 this.setState({
                   outsetyellowscore: preyellow + er
-                })
+                });
               }
               else if (this.state.qnumber >= 16) {
                 this.setState({
                   outsetyellowscore: preyellow + er
-                })
+                });
               }
               break;
             case 'green':
@@ -493,12 +492,12 @@ class CoreApp extends Component {
               if (this.state.greenerror >= 3) {
                 this.setState({
                   outsetgreenscore: pregreen + er
-                })
+                });
               }
               else if (this.state.qnumber >= 16) {
                 this.setState({
                   outsetgreenscore: pregreen + er
-                })
+                });
               }
               break;
           }
@@ -509,13 +508,13 @@ class CoreApp extends Component {
             wronganswer: true,
             wronganswer2: true,
             padnum: null
-          })
+          });
         }
         break;
       case 'free':
         if (this.state.twoteam === true) {
-          var fc = 20;
-          var tt = 1;
+          fc = 20; 
+          tt = 1;
           console.log(fc);
           console.log(tt);
         }
@@ -563,7 +562,7 @@ class CoreApp extends Component {
           jcolor = 'red';
           this.setState({
             jcolor: jcolor
-          })
+          });
         }
         this.setState({
           qnumber: tempqnumber + tt,
@@ -578,9 +577,12 @@ class CoreApp extends Component {
           padnum: null,
           jcolor: ''
 
-        })
+        });
+        break;    
+      default:
+        console.log('no pad registered');
         break;
-    }
+      }
   }
 
   componentDidMount() {
@@ -609,7 +611,7 @@ class CoreApp extends Component {
         });
         this.setState({
           openredscore: scorecard[score].openredscore
-        })
+        });
       }
 
       this.setState({
@@ -624,167 +626,167 @@ class CoreApp extends Component {
   }
   redfoul() {
     const scoreboardRef = firebase.database().ref('scoreboard');
-    var tempfoul = this.state.redfouls;
+    let tempfoul = this.state.redfouls;
     this.setState({
       redfouls: tempfoul + 1
-    })
+    });
     tempfoul = tempfoul +1;
-    var tempfoulscore = (Math.floor(tempfoul/3)*-10)
-    console.log(tempfoulscore)
+    let tempfoulscore = (Math.floor(tempfoul/3)*-10);
+    console.log(tempfoulscore);
     this.setState({
       redfoulscore: tempfoulscore
-    })
-    var tempscore = this.state.outsetredscore + this.state.redfoulscore;
+    });
+    let tempscore = this.state.outsetredscore + this.state.redfoulscore;
     this.setState({
       redscore:tempscore
-    })
-    var scoreb = {
+    });
+    let scoreb = {
       redscore: tempscore
-    }
+    };
     scoreboardRef.push(scoreb);
   }
 
   yellowfoul() {
     const scoreboardRef = firebase.database().ref('scoreboard');
-    var tempfoul = this.state.yellowfouls;
+    let tempfoul = this.state.yellowfouls;
     this.setState({
       yellowfouls: tempfoul + 1
-    })
+    });
     tempfoul = tempfoul +1;
-    var tempfoulscore = (Math.floor(tempfoul/3)*-10)
-    console.log(tempfoulscore)
+    let tempfoulscore = (Math.floor(tempfoul/3)*-10);
+    console.log(tempfoulscore);
     this.setState({
       yellowfoulscore: tempfoulscore
-    })
-    var tempscore = this.state.outsetyellowscore + this.state.yellowfoulscore;
+    });
+    let tempscore = this.state.outsetyellowscore + this.state.yellowfoulscore;
     this.setState({
       yellowscore:tempscore
-    })
-    var scoreb = {
+    });
+    let scoreb = {
       yellowscore: tempscore
-    }
+    };
     scoreboardRef.push(scoreb);
   }
 
   greenfoul() {
     const scoreboardRef = firebase.database().ref('scoreboard');
-    var tempfoul = this.state.greenfouls;
+    let tempfoul = this.state.greenfouls;
     this.setState({
       greenfouls: tempfoul + 1
-    })
+    });
     tempfoul = tempfoul +1;
-    var tempfoulscore = (Math.floor(tempfoul/3)*-10)
-    console.log(tempfoulscore)
+    let tempfoulscore = (Math.floor(tempfoul/3)*-10);
+    console.log(tempfoulscore);
     this.setState({
       greenfoulscore: tempfoulscore
-    })
-    var tempscore = this.state.outsetgreenscore + this.state.greenfoulscore;
+    });
+    let tempscore = this.state.outsetgreenscore + this.state.greenfoulscore;
     this.setState({
       greenscore:tempscore
-    })
-    var scoreb = {
+    });
+    let scoreb = {
       greenscore: tempscore
-    }
+    };
     scoreboardRef.push(scoreb);
   }
 
   redunfoul() {
-    var tempfoul = this.state.redfouls;
+    let tempfoul = this.state.redfouls;
     if(tempfoul-1<=0){
       this.setState({
         redfouls:0
-      })
+      });
     }
     else {
       tempfoul = this.state.redfouls -1;
       this.setState({
         redfouls: tempfoul
-      })
+      });
     }
-    var tempfoulscore = (Math.floor(tempfoul/3)*-10)
+    let tempfoulscore = (Math.floor(tempfoul/3)*-10);
     this.setState({
       redfoulscore: tempfoulscore
     });
-    var tempscore = this.state.outsetredscore + this.state.redfoulscore;
+    let tempscore = this.state.outsetredscore + this.state.redfoulscore;
     this.setState({
       redscore:tempscore
-    })
+    });
   }
   
   yellowunfoul() {
-    var tempfoul = this.state.yellowfouls;
+    let tempfoul = this.state.yellowfouls;
     if(tempfoul-1<=0){
       this.setState({
         yellowfouls:0
-      })
+      });
     }
     else {
       tempfoul = this.state.yellowfouls -1;
       this.setState({
         yellowfouls: tempfoul
-      })
+      });
     }
-    var tempfoulscore = (Math.floor(tempfoul/3)*-10)
+    let tempfoulscore = (Math.floor(tempfoul/3)*-10);
     this.setState({
       yellowfoulscore: tempfoulscore
     });
-    var tempscore = this.state.outsetyellowscore + this.state.yellowfoulscore;
+    let tempscore = this.state.outsetyellowscore + this.state.yellowfoulscore;
     this.setState({
       yellowscore:tempscore
-    })
+    });
   }
 
   greenunfoul() {
-    var tempfoul = this.state.greenfouls;
+    let tempfoul = this.state.greenfouls;
     if(tempfoul-1<=0){
       this.setState({
         greenfouls:0
-      })
+      });
     }
     else {
       tempfoul = this.state.greenfouls -1;
       this.setState({
         greenfouls: tempfoul
-      })
+      });
     }
-    var tempfoulscore = (Math.floor(tempfoul/3)*-10)
+    let tempfoulscore = (Math.floor(tempfoul/3)*-10);
     this.setState({
       greenfoulscore: tempfoulscore
     });
-    var tempscore = this.state.outsetgreenscore + this.state.greenfoulscore;
+    let tempscore = this.state.outsetgreenscore + this.state.greenfoulscore;
     this.setState({
       greenscore:tempscore
-    })
+    });
   }
 
   correctguess() {
-    var tempr = this.state.outsetredscore + this.state.redfoulscore;
-    var tempy = this.state.outsetyellowscore + this.state.yellowfoulscore;
-    var tempg = this.state.outsetgreenscore + this.state.greenfoulscore
+    let tempr = this.state.outsetredscore + this.state.redfoulscore;
+    let tempy = this.state.outsetyellowscore + this.state.yellowfoulscore;
+    let tempg = this.state.outsetgreenscore + this.state.greenfoulscore;
     
     this.setState({
       jresult: true,
       redscore:tempr,
       yellowscore:tempy,
       greenscore:tempg
-    })
+    });
     console.log(this.state.jresult);
   }
   incorrectguess() {
-    var tempr = this.state.outsetredscore + this.state.redfoulscore;
-    var tempy = this.state.outsetyellowscore + this.state.yellowfoulscore;
-    var tempg = this.state.outsetgreenscore + this.state.greenfoulscore
+    let tempr = this.state.outsetredscore + this.state.redfoulscore;
+    let tempy = this.state.outsetyellowscore + this.state.yellowfoulscore;
+    let tempg = this.state.outsetgreenscore + this.state.greenfoulscore;
     
     this.setState({
       jresult: false,
       redscore:tempr,
       yellowscore:tempy, 
       greenscore:tempg
-    })
+    });
     console.log(this.state.jresult);
   }
   pass() {
-    var tempqnumber = this.state.qnumber;
+    let tempqnumber = this.state.qnumber;
     this.setState({
       qnumber: tempqnumber,
       jresult: false,
@@ -797,48 +799,48 @@ class CoreApp extends Component {
       greenout: false,
       padnum: null,
       jcolor: ''
-    })
+    });
   }
   twoteam() {
     this.setState({
       twoteam: true,
       teamselect: true
-    })
+    });
   }
   threeteam() {
     this.setState({
       teamselect: true
-    })
+    });
   }
   AACS() {
     this.setState({
       quiztype: true
-    })
+    });
   }
   Spectacular() {
     this.setState({
       notoss: true,
       quiztype: true
-    })
+    });
   }
   training() {
     this.setState({
       quiztype: true
-    })
+    });
   }
   challengeappeal() {
     this.setState({
       twoteam: true,
       hidebutt: true
-    })
+    });
   }
   validateredscore() {
-    var tempredscore = this.state.redscore;
+    let tempredscore = this.state.redscore;
     //  - Math.floor(this.state.redfoul / 3)*10);
     if (tempredscore >= 1) {
       this.setState({
         outsetredscore: tempredscore
-      })
+      });
     }
     else (
       this.setState({
@@ -847,11 +849,11 @@ class CoreApp extends Component {
     );
   }
   validateyellowscore() {
-    var tempyellowscore = (this.state.yellowscore - Math.floor(this.state.yellowfoul / 3) * 10);
+    let tempyellowscore = (this.state.yellowscore - Math.floor(this.state.yellowfoul / 3) * 10);
     if (tempyellowscore >= 1) {
       this.setState({
         outsetyellowscore: tempyellowscore
-      })
+      });
     }
     else (
       this.setState({
@@ -860,11 +862,11 @@ class CoreApp extends Component {
     );
   }
   validategreenscore() {
-    var tempgreenscore = (this.state.greenscore - Math.floor(this.state.greenfoul / 3) * 10);
+    let tempgreenscore = (this.state.greenscore - Math.floor(this.state.greenfoul / 3) * 10);
     if (tempgreenscore >= 1) {
       this.setState({
         outsetgreenscore: tempgreenscore
-      })
+      });
     }
     else (
       this.setState({
@@ -874,10 +876,10 @@ class CoreApp extends Component {
   }
   displayredscore() {
     const scoreRef = firebase.database().ref('scoredisplay');
-    var newState = [];
+    let newState = [];
     this.setState({
       reddisplay: this.state.outsetredscore
-    })
+    });
     newState.push({
       reddisplay: this.state.outsetredscore
     });
